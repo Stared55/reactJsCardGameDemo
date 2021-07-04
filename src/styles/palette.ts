@@ -1,3 +1,15 @@
 export const palette: Record<string, string> = {
-  grey1: '#ecf0f1'
+  black: '#000000',
+  white: '#FFFFFF',
+  grey1: '#ecf0f1',
+  blue1: '#3498db',
+  blue2: "#C4F9FF",
+  blue3: "#154470",
+  blue4: "#375570",
+  blue5: "#2D92F0",
+  blue6: "#77B7F2",
+  red1: "#FF0005",
+  red2: "#F56856",
+  skin: "#FFDED1",
+  transparent: "rgba(0, 0, 0, 0)",
 }

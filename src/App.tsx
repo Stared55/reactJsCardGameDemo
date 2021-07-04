@@ -1,10 +1,13 @@
 import React from 'react';
-
-import { HomeScreen } from './screens'
+import { I18nextProvider } from 'react-i18next';
+import { i18n } from './locale';
+import {RootNavigator} from './navigation';
 
 const App: React.FC = () => {
   return (
-    <HomeScreen />
+    <I18nextProvider i18n={i18n}>
+      <RootNavigator />
+    </I18nextProvider>
   );
 }
 
