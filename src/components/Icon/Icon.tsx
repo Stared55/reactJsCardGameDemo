@@ -5,9 +5,9 @@ import { iconComponents } from './getIcon';
 export interface IconProps {
   name: IconName;
 }
- 
-export const Icon: React.FC<IconProps> = ({name}) => {
+
+export const Icon: React.FC<IconProps> = ({ name }) => {
   const IconComponent = iconComponents[name];
 
-  return ( <IconComponent /> );
-}
+  return <IconComponent />;
+};

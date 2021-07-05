@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagramSquare, FaGoogle, FaLinkedin, FaYoutube } from 'react-icons/fa';
-import {  AiOutlineQuestion} from 'react-icons/ai';
+import { AiOutlineQuestion } from 'react-icons/ai';
 import { IconName } from 'src/types/icons';
 
 export const iconComponents: Record<IconName, React.FC> = {
@@ -10,5 +10,5 @@ export const iconComponents: Record<IconName, React.FC> = {
   google: FaGoogle,
   linkedin: FaLinkedin,
   'question-mark': AiOutlineQuestion,
-  'you-tube': FaYoutube
-}
+  'you-tube': FaYoutube,
+};

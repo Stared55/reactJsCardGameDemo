@@ -1,37 +1,37 @@
 import { css, StyleSheet } from 'aphrodite';
-import { FC, useState } from 'react';
-import { Icon, StyledButton } from 'src/components';
+import React from 'react';
+import { Icon } from 'src/components';
 import { palette } from 'src/styles';
 import { IconName } from 'src/types';
 import ReactCardFlip from 'react-card-flip';
 
 export interface CardParams {
-  card: ICard,
-  onClick: (card: ICard)=> void
+  card: ICard;
+  onClick: (card: ICard) => void;
 }
 
 export interface ICard {
-  id: number,
-  frontIcon: IconName,
-  flipped: boolean,
+  id: number;
+  frontIcon: IconName;
+  flipped: boolean;
 }
- 
-export const Card: FC<CardParams> = ({ card, onClick }) => {
-  const {flipped, frontIcon} = card;
+
+export const Card: React.FC<CardParams> = ({ card, onClick }) => {
+  const { flipped, frontIcon } = card;
 
   const revertCard = () => {
-    !flipped && onClick(card)
-  }
+    !flipped && onClick(card);
+  };
 
-  return (  
+  return (
     <div onClick={revertCard} className={css(styles.card, !flipped && styles.flipped)}>
-      <ReactCardFlip isFlipped={!flipped} flipDirection="vertical">
+      <ReactCardFlip isFlipped={!flipped} flipDirection="horizontal">
         <Icon name={frontIcon} />
-        <Icon name='question-mark'/>
+        <Icon name="question-mark" />
       </ReactCardFlip>
     </div>
   );
-}
+};
 
 const styles = StyleSheet.create({
   card: {
@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
     margin: 4,
     border: `1px solid ${palette.black}`,
     ':hover': {
-      cursor: 'pointer'
-    }
+      cursor: 'pointer',
+    },
   },
-  flipped :{
+  flipped: {
     backgroundColor: palette.grey1,
-  }
-})
+  },
+});

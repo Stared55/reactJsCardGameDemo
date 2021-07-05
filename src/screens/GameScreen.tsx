@@ -1,96 +1,113 @@
 import { StyleSheet, css } from 'aphrodite';
-import { useEffect } from 'react';
-import { FC, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+
+import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ScreenWrapper, StyledText, Card, StyledButton } from 'src/components';
 import { ICard } from 'src/components/Card';
 import { i18n } from 'src/locale';
 import { palette } from 'src/styles';
 import { IconName } from 'src/types';
-import { cardAlreadyInCheckers, checkersFull, getCards, shuffleCards, validateCheckers } from 'src/utils';
-
+import { cardAlreadyInCheckers, checkersFull, getCards, validateCheckers } from 'src/utils';
+import { setScore, setName } from 'src/store/game/gameSlice';
 
 export interface GameScreenParams {
-  name: string
+  name: string;
 }
 
+const cardTypes: IconName[] = ['facebook', 'google', 'instagram', 'linkedin', 'twitter', 'you-tube'];
 
-const cardTypes: IconName[] = ['facebook','google', 'instagram','linkedin', 'twitter', 'you-tube']
- 
-const initCards = getCards(cardTypes)
+const initCards = getCards(cardTypes);
 
-export const GameScreen: FC = () => {
-  const [cards, setCards] = useState<ICard[]>(initCards)
-  const [checkers, setCheckers] = useState<ICard[]>([])
-  const [completedCards, setCompletedCards] = useState<ICard[]>([])
-  const [moves, setMoves] = useState<number>(0)
-  const [isWinner, setIsWinner] = useState<boolean>(true)
+export const GameScreen: React.FC = () => {
+  const [cards, setCards] = useState<ICard[]>(initCards);
+  const [checkers, setCheckers] = useState<ICard[]>([]);
+  const [completedCards, setCompletedCards] = useState<ICard[]>([]);
+  const [moves, setMoves] = useState<number>(0);
+  const [time, setTime] = useState<number>(0);
+  const [isWinner, setIsWinner] = useState<boolean>(false);
   const { name } = useParams<GameScreenParams>();
+  const dispatch = useDispatch();
   const history = useHistory();
-  
+
+  useEffect(() => {
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const newCards: ICard[] = cards.map((card) => ({
+      ...card,
+      flipped:
+        !!checkers.find((el) => el.id === card.id) ||
+        !!completedCards.find((el) => el.frontIcon === card.frontIcon),
+    }));
+
+    setCards(newCards);
+  }, [checkers, completedCards]);
+
+  useEffect(() => {
+    if (completedCards.length === cardTypes.length) {
+      setIsWinner(true);
+      clearInterval(interval);
+    }
+  }, [cards]);
 
   const onCardClick = (card: ICard): void => {
-    if (checkersFull(checkers) || cardAlreadyInCheckers(checkers, card)) return
-    
-    setMoves(prevSate=> prevSate+1)
-    
-    const newCheckers = [...checkers, card]
-    setCheckers(newCheckers)
-    
-    const cardsInCheckersMatched = validateCheckers(newCheckers)
-    
+    if (checkersFull(checkers) || cardAlreadyInCheckers(checkers, card)) return;
+
+    setMoves((prevSate) => prevSate + 1);
+
+    const newCheckers = [...checkers, card];
+    setCheckers(newCheckers);
+
+    const cardsInCheckersMatched = validateCheckers(newCheckers);
+
     if (cardsInCheckersMatched) {
-      setCompletedCards([...completedCards, newCheckers[0]])
+      setCompletedCards([...completedCards, newCheckers[0]]);
     }
-    
+
     if (checkersFull(newCheckers)) {
-      resetCheckersAfter(800)
+      resetCheckersAfter(800);
     }
-  }
-  
-  useEffect(()=>{
-    const newCards: ICard[] = cards.map(card =>({
-      ...card,
-      flipped: !!checkers.find(el=>el.id === card.id) || !!completedCards.find(el => el.frontIcon === card.frontIcon),
-    }))
-    
-    setCards(newCards)
-  }, [checkers, completedCards])
+  };
 
-  useEffect(()=>{
-    completedCards.length === cardTypes.length && setIsWinner(true)
-  }, [cards])
+  const interval = useMemo(() => setInterval(() => setTime((prevState) => prevState + 1), 1000), []);
 
-
-  const resetCheckersAfter = (time: number): void => {
+  const resetCheckersAfter = (_time: number): void => {
     setTimeout(() => {
-      setCheckers([])
-    }, time)
-  }
+      setCheckers([]);
+    }, _time);
+  };
 
   const finishGame = (): void => {
-    const score = moves * 13
-    history.push(`/leader-board/`)
-  }
+    const score = Math.floor((moves * 13 * time) / 2);
+    dispatch(setScore(score));
+    dispatch(setName(name));
+    history.push(`/leader-board/`);
+  };
 
-  return ( 
+  return (
     <ScreenWrapper title={i18n.t('screens:game')}>
       <div className={css(styles.statsWrapper)}>
-        <StyledText>Moves: {moves}</StyledText>
+        <StyledText>{i18n.t('moves', { moves })}</StyledText>
+        <StyledText>{i18n.t('time', { time })}</StyledText>
       </div>
       <div className={css(styles.board)}>
-        {cards.map((card, i) =><Card onClick={()=>onCardClick(card)} key={i} card={card}/> )}
+        {cards.map((card, i) => (
+          <Card onClick={() => onCardClick(card)} key={i} card={card} />
+        ))}
       </div>
       {isWinner && (
         <>
-          <StyledText>{i18n.t('congratulations', {name})}</StyledText>
-          <StyledButton style={styles.button} onClick={finishGame}>{i18n.t('finishGame')}</StyledButton>
+          <StyledText>{i18n.t('congratulations', { name })}</StyledText>
+          <StyledButton style={styles.button} onClick={finishGame}>
+            {i18n.t('finishGame')}
+          </StyledButton>
         </>
       )}
-    </ScreenWrapper> 
+    </ScreenWrapper>
   );
-}
-
+};
 
 const styles = StyleSheet.create({
   board: {
@@ -102,7 +119,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   statsWrapper: {
     display: 'flex',
@@ -119,10 +136,10 @@ const styles = StyleSheet.create({
     height: 70,
     ':hover': {
       boxShadow: `0px 0px 10px 0px ${palette.blue1}`,
-      cursor: 'pointer'
-    }
+      cursor: 'pointer',
+    },
   },
-  button:{
-    marginTop:6
-  }
-})
+  button: {
+    marginTop: 6,
+  },
+});

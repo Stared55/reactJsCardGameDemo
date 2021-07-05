@@ -3,29 +3,28 @@ import * as React from 'react';
 import { StyledText } from 'src/components';
 import { palette } from 'src/styles';
 
-
 export interface ITableItem {
-  leftCol: number | string
-  rightCol: number | string
+  leftCol: number | string;
+  rightCol: number | string;
 }
 
 interface Props {
-  data: ITableItem
-  isLast?: boolean
+  data: ITableItem;
+  isLast?: boolean;
+  // eslint-disable-next-line
   style?: React.HTMLAttributes<HTMLDivElement> | {};
 }
 
-export const TableItem: React.FC<Props> = ({data, isLast, style = {}}) => {
-  const {leftCol , rightCol} = data
-  
-  return ( 
+export const TableItem: React.FC<Props> = ({ data, isLast, style = {} }) => {
+  const { leftCol, rightCol } = data;
+
+  return (
     <div className={css(styles.item, style, isLast && styles.lastItem)}>
       <StyledText style={styles.name}>{leftCol}</StyledText>
       <StyledText>{rightCol}</StyledText>
     </div>
   );
-}
-
+};
 
 const styles = StyleSheet.create({
   item: {
@@ -36,10 +35,10 @@ const styles = StyleSheet.create({
     borderBottom: 'none',
     width: '100%',
   },
-  name:{
-    marginRight: 6
+  name: {
+    marginRight: 6,
   },
   lastItem: {
     borderBottom: `1px solid ${palette.black}`,
-  }
-})
+  },
+});

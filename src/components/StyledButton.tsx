@@ -1,5 +1,5 @@
 import { css, StyleSheet } from 'aphrodite';
-import React, {HTMLAttributes} from 'react';
+import React, { HTMLAttributes } from 'react';
 import { palette } from 'src/styles';
 import { StyledText } from './StyledText';
 
@@ -7,14 +7,10 @@ interface Props {
   onClick: () => void;
   style?: HTMLAttributes<HTMLButtonElement>;
 }
- 
-export const StyledButton: React.FC<Props> =  ({ onClick, children, style }) => {
+
+export const StyledButton: React.FC<Props> = ({ onClick, children, style }) => {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={css(styles.button, style)}
-      >
+    <button type="button" onClick={onClick} className={css(styles.button, style)}>
       <StyledText>{children}</StyledText>
     </button>
   );
@@ -22,20 +18,21 @@ export const StyledButton: React.FC<Props> =  ({ onClick, children, style }) => 
 
 const styles = StyleSheet.create({
   button: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    transition: "0.5s",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    transition: '0.5s',
     border: `2px solid ${palette.black}`,
-    padding: 6,
     borderRadius: 5,
-    width: 220,
-    height: 50,
+    padding: 6,
+    paddingLeft: 16,
+    paddingRight: 16,
     backgroundColor: palette.transparent,
-    cursor: "pointer",
-    textAlign: "center",
-    ":hover": {
+    cursor: 'pointer',
+    textAlign: 'center',
+    margin: 12,
+    ':hover': {
       border: `2px solid ${palette.blue1}`,
     },
   },

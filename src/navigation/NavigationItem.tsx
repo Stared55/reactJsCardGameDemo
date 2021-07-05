@@ -1,27 +1,27 @@
 import { css, StyleSheet } from 'aphrodite';
 import * as React from 'react';
-import {
-  Link, useRouteMatch
-} from "react-router-dom";
+import { Link, useRouteMatch } from 'react-router-dom';
 import { palette } from 'src/styles';
 
 export interface NavigationItemProps {
-  to: string,
-  label: string,
-  activeOnlyWhenExact: boolean
+  to: string;
+  label: string;
+  activeOnlyWhenExact: boolean;
 }
- 
-export const NavigationItem: React.FC<NavigationItemProps> = ({to, label, activeOnlyWhenExact}) => {
-  const  match = useRouteMatch({
+
+export const NavigationItem: React.FC<NavigationItemProps> = ({ to, label, activeOnlyWhenExact }) => {
+  const match = useRouteMatch({
     path: to,
-    exact: activeOnlyWhenExact
+    exact: activeOnlyWhenExact,
   });
-  return ( 
-      <li className={css(styles.li)}>
-        <Link className={css(styles.link, match && styles.active)} to={to}>{label}</Link>
-      </li>
-   );
-}
+  return (
+    <li className={css(styles.li)}>
+      <Link className={css(styles.link, match && styles.active)} to={to}>
+        {label}
+      </Link>
+    </li>
+  );
+};
 
 const styles = StyleSheet.create({
   li: {
@@ -30,18 +30,18 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginRight: 12,
   },
-  link:{
+  link: {
     textDecoration: 'none',
     color: palette.black,
-    ":hover" : {
+    ':hover': {
       color: palette.blue1,
-      cursor: 'pointer'
-    }
+      cursor: 'pointer',
+    },
   },
   active: {
-    color: palette.blue1,    
-    ":hover" : {
-      cursor: 'default'
-    }
-  }
-})
+    color: palette.blue1,
+    ':hover': {
+      cursor: 'default',
+    },
+  },
+});

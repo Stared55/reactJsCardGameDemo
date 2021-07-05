@@ -1,2 +1,2 @@
-export * from './getIcon'
-export { Icon } from './Icon'
+export * from './getIcon';
+export { Icon } from './Icon';

@@ -1,3 +1,2 @@
-export * from './RootNavigator'
-export { Navigation } from './Navigation'
-export * from './routes'
+export * from './RootNavigator';
+export { Navigation } from './Navigation';
