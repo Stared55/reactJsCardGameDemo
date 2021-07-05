@@ -27,8 +27,7 @@ export const getCards = (cardTypes: IconName[]): ICard[] => {
     cards.push(secondPair);
   }
 
-  // return shuffleCards(cards);
-  return cards;
+  return shuffleCards(cards);
 };
 
 export const validateCheckers = (array: ICard[]): boolean =>
