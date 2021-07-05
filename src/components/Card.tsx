@@ -2,18 +2,12 @@ import { css, StyleSheet } from 'aphrodite';
 import React from 'react';
 import { Icon } from 'src/components';
 import { palette } from 'src/styles';
-import { IconName } from 'src/types';
+import { ICard } from 'src/types';
 import ReactCardFlip from 'react-card-flip';
 
 export interface CardParams {
   card: ICard;
   onClick: (card: ICard) => void;
-}
-
-export interface ICard {
-  id: number;
-  frontIcon: IconName;
-  flipped: boolean;
 }
 
 export const Card: React.FC<CardParams> = ({ card, onClick }) => {

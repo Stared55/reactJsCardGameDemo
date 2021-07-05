@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import { i18n } from 'src/locale';
 import { ApplicationState } from 'src/store';
 import { palette } from 'src/styles';
-import { ITableItem, TableItem } from './TableItem';
+import { TableItem } from './TableItem';
 import * as _ from 'lodash';
+import { ITableItem } from 'src/types';
 
 const tableHeader: ITableItem = {
   leftCol: i18n.t('table:name') as string,

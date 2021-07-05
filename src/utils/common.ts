@@ -1,5 +1,4 @@
-import { IconName } from 'src/types';
-import { ICard } from 'src/components/Card';
+import { IconName, ICard } from 'src/types';
 
 export const shuffleCards = (array: ICard[]): ICard[] => {
   for (let i = 0; i < array.length; i++) {

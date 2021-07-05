@@ -1,4 +1,4 @@
-import { ITableItem } from 'src/components/Table/TableItem';
+import { ITableItem } from "src/types";
 
 export const APP_NAME = 'Card Game Demo by Stared55';
 

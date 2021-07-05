@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { ScreenWrapper, StyledText, Table, StyledButton } from 'src/components';
-import { ITableItem } from 'src/components/Table/TableItem';
 import { i18n } from 'src/locale';
 import { ApplicationState } from 'src/store';
 import { clearLeaderBoard, resetName, resetScore, updateLeaderBoard } from 'src/store/game/gameSlice';
+import { ITableItem } from 'src/types';
 
 export const LeaderBoardScreen: React.FC = () => {
   const { score, name } = useSelector((state: ApplicationState) => state.game);

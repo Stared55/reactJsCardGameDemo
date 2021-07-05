@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ITableItem } from 'src/components/Table/TableItem';
 import { DUMMY_LEADER_BOARD } from 'src/constants';
+import { ITableItem } from 'src/types';
 
 interface State {
   leaderBoard: ITableItem[];

@@ -2,11 +2,7 @@ import { css, StyleSheet } from 'aphrodite';
 import * as React from 'react';
 import { StyledText } from 'src/components';
 import { palette } from 'src/styles';
-
-export interface ITableItem {
-  leftCol: number | string;
-  rightCol: number | string;
-}
+import { ITableItem } from 'src/types';
 
 interface Props {
   data: ITableItem;

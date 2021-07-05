@@ -4,10 +4,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ScreenWrapper, StyledText, Card, StyledButton } from 'src/components';
-import { ICard } from 'src/components/Card';
 import { i18n } from 'src/locale';
 import { palette } from 'src/styles';
-import { IconName } from 'src/types';
+import { IconName, ICard } from 'src/types';
 import { cardAlreadyInCheckers, checkersFull, getCards, validateCheckers } from 'src/utils';
 import { setScore, setName } from 'src/store/game/gameSlice';
 
