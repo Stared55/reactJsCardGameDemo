@@ -15,5 +15,6 @@ const styles = StyleSheet.create({
   errorText: {
     marginTop: 3,
     color: palette.red1,
+    textAlign: 'center',
   },
 });

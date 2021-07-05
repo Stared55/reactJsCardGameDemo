@@ -16,8 +16,8 @@ export const TableItem: React.FC<Props> = ({ data, isLast, style = {} }) => {
 
   return (
     <div className={css(styles.item, style, isLast && styles.lastItem)}>
-      <StyledText style={styles.name}>{leftCol}</StyledText>
-      <StyledText>{rightCol}</StyledText>
+      <StyledText style={styles.col}>{leftCol}</StyledText>
+      <StyledText style={styles.col}>{rightCol}</StyledText>
     </div>
   );
 };
@@ -25,13 +25,14 @@ export const TableItem: React.FC<Props> = ({ data, isLast, style = {} }) => {
 const styles = StyleSheet.create({
   item: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     border: `1px solid ${palette.black}`,
     padding: 10,
     borderBottom: 'none',
     width: '100%',
   },
-  name: {
+  col: {
+    width: '50%',
     marginRight: 6,
   },
   lastItem: {
